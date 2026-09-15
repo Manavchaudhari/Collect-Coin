@@ -88,5 +88,4 @@ This project uses third-party art assets that are licensed for use in the finish
 All gameplay code, UI logic, and game-state architecture are my own work.
 
 ## Demo Video
-
-🎥 Coming soon - a gameplay walkthrough recorded from the packaged build will be linked here.
+[![Watch the demo](https://img.youtube.com/vi/fWVJ0kdVvgY/maxresdefault.jpg)](https://youtu.be/fWVJ0kdVvgY)
