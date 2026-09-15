@@ -53,23 +53,11 @@ CollectCoin is a single-player 3D platformer where you control a sphere, collect
 The project began from a simple rolling-ball base - the movement, camera, and basic input pattern follow Unity's own "Roll a Ball" tutorial structure. From there I built out the parts that make it an actual game: a coin-collection system with a win condition, a water hazard with a restart flow, and a UI layer to show progress. Once the core loop worked, I went back and reworked the physics, since the default drag-based movement felt floaty and made landings imprecise - that rework is covered in detail below. The project is still active: a win-screen panel (Restart/Exit buttons) is the next planned addition.
 
 ## How I Built It
-
+- **Level and audio.** The environment itself started as AurynSkyGames' Forest Pack demo scene — I modified it, adding extra tree placement to create parkour-style jump paths, and populated it with my own gameplay objects: the player sphere, the coin pickups, and the water/floor triggers. The coin pickup sound runs through the vendor's existing trigger system rather than through my own scripts, positioned to overlap each coin — getting that alignment right for every coin individually was fiddlier than it sounds.
 The code is split into two scripts with distinct responsibilities:
 
 - **`PlayerControl.cs`** only handles the sphere itself- reading input, applying movement and jump forces, and reporting what it's currently touching (a coin, water, or the floor). It doesn't know what those events *mean* for the game.
 - **`GameManager.cs`** owns all game-flow state- the coin count, win state, and restart/quit - as a singleton (`GameManager.Instance`) that `PlayerControl` calls into when something relevant happens. Keeping these separate meant the physics/input code stayed simple even as game-state logic grew.
-
-Two specific implementation details worth calling out:
-
-1. **Movement feel.** The tutorial base used `Rigidbody` drag to slow the ball down, but drag also damps vertical velocity - so falls felt floaty and landings imprecise. I replaced that with a manual horizontal speed cap (clamping `Rigidbody.velocity` on the X/Z plane only) and added a separate gravity multiplier applied via `AddForce(Physics.gravity * (gravityScale - 1f), ForceMode.Acceleration)`, so fall speed can be tuned independently of horizontal movement.
-2. **Jump input.** Polling `Input.GetButtonDown("Jump")` directly inside `FixedUpdate` can silently miss a press, since `FixedUpdate` runs on a fixed physics clock that doesn't line up 1:1 with rendered frames. The fix: poll input in `Update()`, latch it into a `jumpRequested` flag, and consume/reset that flag in the next `FixedUpdate()`.
-
-## What I Learned
-
-- Why `Rigidbody` drag is the wrong tool for stopping horizontal slide specifically - it couples horizontal and vertical damping together when you usually want to tune them separately.
-- Why input polling location matters in Unity: `Update()` and `FixedUpdate()` run on different clocks, and button-down checks belong in `Update()`, latched for `FixedUpdate()` to consume.
-- That changing a public field's default value in a script does **not** retroactively update instances already serialized in a scene - an existing component keeps whatever value was saved before the code default changed, until you edit it by hand (or reset the component).
-- The value of separating "what happened" (player/physics code) from "what it means" (game-state code) - it made the win-condition and restart logic much easier to reason about and extend.
 
 ## How It Could Be Improved
 
