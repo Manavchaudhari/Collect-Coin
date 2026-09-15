@@ -15,7 +15,6 @@ A 3D coin-collecting platformer built in Unity: roll a sphere around a level, do
 - [What the Player Can Do](#what-the-player-can-do)
 - [Process](#process)
 - [How I Built It](#how-i-built-it)
-- [What I Learned](#what-i-learned)
 - [How It Could Be Improved](#how-it-could-be-improved)
 - [How to Run the Project](#how-to-run-the-project)
 - [Assets & Credits](#assets--credits)
