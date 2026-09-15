@@ -2,7 +2,7 @@
 
 ![Unity](https://img.shields.io/badge/Unity-2019.4.34f1_LTS-black?logo=unity)
 ![Language](https://img.shields.io/badge/language-C%23-blue)
-![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20WebGL-lightgrey)
+![Platform](https://img.shields.io/badge/platform-Windows-lightgre)
 ![Status](https://img.shields.io/badge/status-paused-yellow)
 
 A 3D coin-collecting platformer built in Unity: roll a sphere around a level, dodge a water hazard, and collect every coin to win.
